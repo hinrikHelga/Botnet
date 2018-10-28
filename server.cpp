@@ -344,24 +344,24 @@ int inputCommand(int clientSocket, fd_set *openSockets, int *maxfds,
 
 int main(int argc, char* argv[])
 {
-    
+
     bool finished;
     int listenTCPSock;              // Socket for TCP connections to server
     int clientSock;                 // Socket of connecting client
     fd_set openSockets;             // Current open sockets
     fd_set readSockets;             // Socket list for select()
     fd_set exceptSockets;           // Exception socket list
-    int maxfds;   
+    int maxfds;
                       // Passed to select() as max fd in set
     struct sockaddr_in client;
     socklen_t client_len;
     char buffer[1025];              // buffer for reading from clients
 
-    myName = "V_group_10";
+    myName = "V_group_65";
 
     if(argc != 2)
     {
-        printf("Usage: chat_server <tcp port> <udp port> <client port>\n");
+        printf("Usage: chat_server <tcp port>\n");
         exit(0);
     }
 
