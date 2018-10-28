@@ -125,7 +125,7 @@ int openTcpSocket(int portno)
 {
    struct sockaddr_in sk_addr;   // address settings for bind()
    int sock;                     // socket opened for this port
-    int set = 1;                  // for setsockopt
+int set = 1;                  // for setsockopt
 
 
    // Create socket for connection
@@ -150,7 +150,6 @@ int openTcpSocket(int portno)
       perror("Failed to set SO_REUSEADDR:");
    }
 
-   //Skoða þetta betur
    memset(&sk_addr, 0, sizeof(sk_addr));
 
    sk_addr.sin_family      = AF_INET;
@@ -186,7 +185,6 @@ int inputCommand(int clientSocket, fd_set *openSockets, int *maxfds,
   while(stream >> token)
       tokens.push_back(token);
 
-  // ID virkar
   if((tokens[0].compare("ID") == 0) && (tokens.size() == 1))
   {
       send(clientSocket, myName.c_str(), myName.length(), 0);
@@ -244,13 +242,6 @@ int inputCommand(int clientSocket, fd_set *openSockets, int *maxfds,
           printf("The ip address of the new connection is: %s\n", ipAddress);
           printf("The port number of the new connection is: %d\n", portNo);
 
-        /*
-          Node myNode = new Node();
-          myNode->name = "Palli";
-          myNode->host_ip = "123.4.5.6";
-          myNode->port = 1234;
-          connectedServers.insert(std::pair<int, Node*>(count, myNode));  //Þarf að skoða þetta betur
-          */
           return(sock);
       }
   }
@@ -266,7 +257,7 @@ int inputCommand(int clientSocket, fd_set *openSockets, int *maxfds,
       }
       else
       {
-        for(auto const& names : connectedServers) // Á að skeyta saman: Hóp_nafn,IP_tala,Port_númer; á öllum connections í connectedServers.
+        for(auto const& names : connectedServers)
         {
            msg += names.second->name + ",";
            msg += names.second->host_ip + ",";
@@ -274,14 +265,8 @@ int inputCommand(int clientSocket, fd_set *openSockets, int *maxfds,
            msg += ";";
         }
         std::cout << msg << std::endl;
-        send(clientSocket, msg.c_str(), msg.length()-1, 0); // Mínus einn til að losna við síðustu kommuna.
+        send(clientSocket, msg.c_str(), msg.length()-1, 0);
       }
-  }
-
-  // Til að sjá ef server getur tekið við skipunum.
-  else if(tokens[0].compare("TEST") == 0)
-  {
-      printf("Test command recieved, over!\n");
   }
   else if(tokens[0].compare("LEAVE") == 0)
   {
