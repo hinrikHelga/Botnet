@@ -1,7 +1,7 @@
 //
 // Simple chat client for TSAM-409
 //
-// Command line: ./chat_client 4000 
+// Command line: ./chat_client 4000
 //
 // Author: Jacky Mallett (jacky@ru.is)
 //
@@ -46,6 +46,7 @@ void listenServer(int serverSocket)
        }
        else if(nread > 0)
        {
+
           printf("%s\n", buffer);
        }
     }
@@ -55,10 +56,10 @@ int main(int argc, char* argv[])
 {
    struct addrinfo hints, *svr;              // Network host entry for server
    struct sockaddr_in server_addr;           // Socket address for server
-   int serverSocket;                         // Socket used for server 
+   int serverSocket;                         // Socket used for server
    int nwrite;                               // No. bytes written to server
    char buffer[1025];                        // buffer for writing to server
-   bool finished;                   
+   bool finished;
    int set = 1;                              // Toggle for setsockopt
 
    if(argc != 3)
@@ -82,12 +83,12 @@ int main(int argc, char* argv[])
 
    serverSocket = socket(svr->ai_family, svr->ai_socktype, svr->ai_protocol);
 
-   // Turn on SO_REUSEADDR to allow socket to be quickly reused after 
+   // Turn on SO_REUSEADDR to allow socket to be quickly reused after
    // program exit.
 
    if(setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &set, sizeof(set)) < 0)
    {
-       printf("Failed to set SO_REUSEADDR for port %d\n", argv[2]);
+       printf("Failed to set SO_REUSEADDR for port %s\n", argv[2]);
        perror("setsockopt failed: ");
    }
 
